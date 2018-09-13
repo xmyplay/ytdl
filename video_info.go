@@ -43,6 +43,8 @@ type VideoInfo struct {
 	Author string `json:"author"`
 	// Duration of the video
 	Duration time.Duration
+	// Poster
+	Poster string `json:"poster"`
 
 	htmlPlayerFile string
 }
@@ -160,6 +162,15 @@ func getVideoInfoFromHTML(id string, html []byte) (*VideoInfo, error) {
 		} else {
 			log.Debug("Unable to parse date published", err.Error())
 		}
+	}
+	//ioutil.WriteFile("y2b.html", html, os.ModePerm)
+	//poster URL
+	dateStr, ok = doc.Find("link[itemprop=\"thumbnailUrl\"]").Attr("href")
+	if !ok {
+		fmt.Printf("Not found poster url")
+	}else {
+		fmt.Printf("Post URL hqdefault ->%s", dateStr)
+		info.Poster = dateStr
 	}
 
 	// match json in javascript
