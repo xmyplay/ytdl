@@ -119,7 +119,7 @@ func (info *VideoInfo) GetDownloadURL(format Format) (*url.URL, error) {
 // with the given quality
 func (info *VideoInfo) GetThumbnailURL(quality ThumbnailQuality) *url.URL {
 	u, _ := url.Parse(fmt.Sprintf("http://img.youtube.com/vi/%s/%s.jpg",
-		info.ID, quality))
+		info.VID, quality))
 	return u
 }
 
@@ -152,7 +152,7 @@ func getVideoInfoFromHTML(id string, html []byte) (*VideoInfo, error) {
 	// extract description and title
 	info.Description = strings.TrimSpace(doc.Find("#eow-description").Text())
 	info.Title = strings.TrimSpace(doc.Find("#eow-title").Text())
-	info.ID = id
+	info.VID = id
 	dateStr, ok := doc.Find("meta[itemprop=\"datePublished\"]").Attr("content")
 	if !ok {
 		log.Debug("Unable to extract date published")
