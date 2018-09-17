@@ -27,8 +27,9 @@ const youtubeDateFormat = "2006-01-02"
 
 // VideoInfo contains the info a youtube video
 type VideoInfo struct {
+	Id  int
 	// The video ID
-	ID string `json:"id"`
+	VID string `json:"id"`
 	// The video title
 	Title string `json:"title"`
 	// The video description
